@@ -2,6 +2,8 @@
   <div>
     <h1>Firebase Handshake Test</h1>
     <h2>Signed in to Firebase: {{uid}}</h2>
+    <h2>foo: {{foo}}</h2>
+    <h2>Time until handshake: {{timeUntilHandshake}}ms</h2>
   </div>
 </template>
 
@@ -13,6 +15,8 @@ export default {
 
   data () {
     return {
+      foo: '',
+      timeUntilHandshake: '',
       uid: ''
     }
   },
@@ -30,10 +34,21 @@ export default {
           })
         }
       })
+
+      this.getData()
+    },
+
+    getData () {
+      this.db = this.firebaseApp.database()
+      this.db.ref('foo').once('value', (foo) => {
+        this.foo = foo.val()
+        this.timeUntilHandshake = Math.round(performance.now() - this.startTime)
+      })
     }
   },
 
   mounted () {
+    this.startTime = performance.now()
     this.firebaseApp = firebase.initializeApp(window.firebaseConfig)
     this.authenticate()
   }
