@@ -2,8 +2,8 @@
   <div>
     <h1>Firebase Handshake Test</h1>
     <h2>Signed in to Firebase: {{uid}}</h2>
+    <h2>Time until handshake: {{timeUntilHandshake}} <span v-if="timeUntilHandshake">ms</span></h2>
     <h2>foo: {{foo}}</h2>
-    <h2>Time until handshake: {{timeUntilHandshake}}ms</h2>
   </div>
 </template>
 
